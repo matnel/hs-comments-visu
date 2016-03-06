@@ -15,17 +15,29 @@
   </head>
   <body>
 
-    <h3>Mistä Hesarissa puhutaan?</h3>
+    <br/>
+    <br/>
 
+  <div class="container">
 
-    <div class="input-group">
-      <input id="hs-url" type="text" class="form-control" placeholder="Uutisen osoite">
-      <span class="input-group-btn">
-        <button id="go-button" class="btn btn-success" type="button">Katso</button>
-      </span>
+    <div class="jumbotron">
+
+      <h1>Mistä Hesarissa puhutaan?</h1>
+
+      <p>
+
+      <div class="input-group">
+        <input id="hs-url" type="text" class="form-control" placeholder="Uutisen osoite">
+        <span class="input-group-btn">
+          <button id="go-button" class="btn btn-success" type="button">Katso</button>
+        </span>
+      </div>
+
+      </p>
+
     </div>
 
-    <div id="responses">
+    <div id="responses" class="row">
 
     </div>
 
@@ -36,8 +48,6 @@
 
     <script type="text/javascript">
 
-      var colours = ['yellow', 'pink', 'green']
-
       $('#go-button').click( function() {
 
         $("#responses").html(""); // empty screen
@@ -47,10 +57,10 @@
           for( var i in response ) {
             var comments = response[ i ];
 
-            var div = $('<div>', { style : 'background:' + colours[ i % colours.length ] + ';' } );
+            var div = $('<ul>', { class: 'list-group col-md-4 col-sd-6', } );
 
             for( var c in comments  ) {
-              div.append( $('<p>').html( comments[c] ) )
+              div.append( $('<li>', { class : 'list-group-item' } ).html( comments[c] ) )
             }
 
             $("#responses").append( div );
@@ -60,5 +70,7 @@
       } )
 
     </script>
+
+  </div>
   </body>
 </html>
