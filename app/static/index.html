@@ -26,6 +26,8 @@
 
       <p>
 
+        <button id="show-all" class="btn btn-primary btn-block btn-lg">Näe kaikki</button>
+
       <div class="input-group">
         <input id="hs-url" type="text" class="form-control" placeholder="Uutisen osoite">
         <span class="input-group-btn">
@@ -69,7 +71,8 @@
 
       }
 
-      $('#go-button').click( function() { topicmodel( '/topicmodel' ); } )      
+      $('#go-button').click( function() { topicmodel( '/topicmodel' ); } );
+      $('#show-all').click( function() { topicmodel( '/all' ); } );
 
     </script>
 

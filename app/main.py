@@ -70,6 +70,14 @@ def topicmodel( comments ):
 def index():
     return send_from_directory( 'static' , 'index.html' )
 
+@app.route('/all', methods=['POST'] )
+def all():
+
+    comments = collect_hs.collect_for_stories()
+    ret = topicmodel( comments )
+
+    return jsonify( ret )
+
 @app.route('/topicmodel', methods=['POST'] )
 def analyze():
 

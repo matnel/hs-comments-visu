@@ -92,7 +92,9 @@ def collect_for_stories():
 
             collected.append( path2 )
 
-    json.dump( data, open('data-20150209.json', 'w') )
+    print data
+
+    return data
 
 
 
