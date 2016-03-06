@@ -1,1 +1,1 @@
-# deliberation-classifier
+# Visualization of HS.fi comments
