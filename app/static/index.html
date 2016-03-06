@@ -59,9 +59,9 @@
 
         $.post( path , { url : $('#hs-url').val() } , function( response ) {
 
-          for( var i in response ) {
+          $("#responses").html("");
 
-            $("#responses").html("");
+          for( var i in response ) {
 
             var comments = response[ i ];
 
