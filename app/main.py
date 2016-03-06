@@ -16,17 +16,7 @@ app = Flask(__name__)
 ## common constructs
 stem = nltk.stem.snowball.SnowballStemmer('finnish')
 
-@app.route("/")
-def index():
-    return send_from_directory( 'static' , 'index.html' )
-
-@app.route('/topicmodel', methods=['POST'] )
-def analyze():
-
-    path1 = request.form['url'].split('/')[-1]
-    path = '1296808743968/' + path1
-
-    comments = collect_hs.comment( path )
+def topicmodel( comments ):
 
     _texts = []
     texts = []
@@ -39,12 +29,11 @@ def analyze():
         text = map( lambda x: stem.stem( x ) , text )
         texts.append( ' '.join( text ) )
 
-
     tf_vectorizer = CountVectorizer(
-                max_df=0.95,
+                max_df=.95,
                 min_df=2,
                 max_features= 10000 )
-    texts = tf_vectorizer.fit_transform( _texts )
+    texts = tf_vectorizer.fit_transform( texts )
 
     ## test between 2 and 20 topics
     topics = {}
@@ -64,6 +53,7 @@ def analyze():
     topic = max( topics.keys() )
 
     ret = collections.defaultdict( list )
+
     ## ugly, rewrite some day
     new_topics = topics[ topic ].transform( texts )
     for i, topic in enumerate( new_topics ):
@@ -71,9 +61,23 @@ def analyze():
         topic = numpy.argmax( topic )
         text = _texts[ i ].encode('utf8')
 
-        print text
-
         ret[ topic ].append( text )
+
+    return ret
+
+
+@app.route("/")
+def index():
+    return send_from_directory( 'static' , 'index.html' )
+
+@app.route('/topicmodel', methods=['POST'] )
+def analyze():
+
+    path1 = request.form['url'].split('/')[-1]
+    path = '1296808743968/' + path1
+
+    comments = collect_hs.comment( path )
+    ret = topicmodel( comments )
 
     return jsonify( ret )
 
