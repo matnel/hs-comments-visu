@@ -15,19 +15,48 @@
   </head>
   <body>
 
-    <h3>Mistä Hesarissa oikeasti puhutaan?</h3>
+    <h3>Mistä Hesarissa puhutaan?</h3>
 
 
     <div class="input-group">
-      <input type="text" class="form-control" placeholder="Uutisen osoite">
+      <input id="hs-url" type="text" class="form-control" placeholder="Uutisen osoite">
       <span class="input-group-btn">
-        <button class="btn btn-success" type="button">Katso</button>
+        <button id="go-button" class="btn btn-success" type="button">Katso</button>
       </span>
+    </div>
+
+    <div id="responses">
+
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+
+      var colours = ['yellow', 'pink', 'green']
+
+      $('#go-button').click( function() {
+
+        $.post('/topicmodel', { url : $('#hs-url').val() } , function( response ) {
+
+          for( var i in response ) {
+            var comments = response[ i ];
+
+            var div = $('<div>', { style : 'background:' + colours[ i % colours.length ] + ';' } );
+
+            for( var c in comments  ) {
+              div.append( $('<p>').html( comments[c] ) )
+            }
+
+            $("#responses").append( div );
+          };
+        } );
+
+      } )
+
+    </script>
   </body>
 </html>
