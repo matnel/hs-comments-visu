@@ -40,6 +40,8 @@
 
       $('#go-button').click( function() {
 
+        $("#responses").html(""); // empty screen
+
         $.post('/topicmodel', { url : $('#hs-url').val() } , function( response ) {
 
           for( var i in response ) {
