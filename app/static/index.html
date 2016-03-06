@@ -50,19 +50,27 @@
 
     <script type="text/javascript">
 
+      var colors = ['#F5D5CE' , '#DBF5CE', '#CEEEF5', '#E9CEF5'];
+
       var topicmodel = function( path ) {
 
-        $("#responses").html(""); // empty screen
+        // set a nice loading window
+        $("#responses").html('<div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>');
 
         $.post( path , { url : $('#hs-url').val() } , function( response ) {
 
           for( var i in response ) {
+
+            $("#responses").html("");
+
             var comments = response[ i ];
 
-            var div = $('<ul>', { class: 'list-group col-md-4 col-sd-6', } );
+            var i = parseInt( i );
+
+            var div = $('<ul>', { class: 'list-group col-md-4 col-sd-6' } );
 
             for( var c in comments  ) {
-              div.append( $('<li>', { class : 'list-group-item' } ).html( comments[c] ) )
+              div.append( $('<li>', { class : 'list-group-item', style : 'background:' + colors[ i % colors.length ] + ';' } ).html( comments[c] ) )
             }
 
             $("#responses").append( div );
