@@ -35,10 +35,10 @@ def topicmodel( comments ):
                 max_features= 10000 )
     texts = tf_vectorizer.fit_transform( texts )
 
-    ## test between 2 and 20 topics
+    ## test between 2 and 50 topics
     topics = {}
 
-    for k in range(2, 21):
+    for k in range(2, 51):
         model = LatentDirichletAllocation(
                     n_topics= k ,
                     max_iter=5,
