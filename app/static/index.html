@@ -29,7 +29,7 @@
       <div class="input-group">
         <input id="hs-url" type="text" class="form-control" placeholder="Uutisen osoite">
         <span class="input-group-btn">
-          <button id="go-button" class="btn btn-success" type="button">Katso</button>
+          <button id="go-button" class="btn btn-default" type="button">Katso</button>
         </span>
       </div>
 
@@ -48,11 +48,11 @@
 
     <script type="text/javascript">
 
-      $('#go-button').click( function() {
+      var topicmodel = function( path ) {
 
         $("#responses").html(""); // empty screen
 
-        $.post('/topicmodel', { url : $('#hs-url').val() } , function( response ) {
+        $.post( path , { url : $('#hs-url').val() } , function( response ) {
 
           for( var i in response ) {
             var comments = response[ i ];
@@ -67,7 +67,9 @@
           };
         } );
 
-      } )
+      }
+
+      $('#go-button').click( function() { topicmodel( '/topicmodel' ); } )      
 
     </script>
 
