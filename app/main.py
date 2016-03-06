@@ -29,11 +29,15 @@ def analyze():
     comments = collect_hs.comment( path )
 
     _texts = []
+    texts = []
 
     for c in comments:
+
+        _texts.append( c['text'] )
+
         text = nltk.word_tokenize( c['text'] )
         text = map( lambda x: stem.stem( x ) , text )
-        _texts.append( ' '.join( text ) )
+        texts.append( ' '.join( text ) )
 
 
     tf_vectorizer = CountVectorizer(
